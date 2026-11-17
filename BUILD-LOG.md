@@ -120,6 +120,38 @@ node:zlib) behind the starter `main.ts` lifecycle (unchanged):
   Eligibility on every run: ranked yes, prize no, efficiency no
   (`no_transcripts`, `coverage_below_gate`, `cost_unpriced`) — transcript gate
   and pricing are submit-time items, not code failures.
-- `makefun check` / `makefun bundle`: see final report (transcript gate depends on
-  the parent's submit decision; no submit was run).
+- `makefun check --kit . --repo <entry>` at HEAD `c8e9abb` (received
+  2026-11-17T00:38:00Z): **7 passed, 1 failed, 15 skipped, 3 at submission**.
+  Passed: competition_open, snapshot (8 files, 147,265 bytes), license_osi (MIT),
+  entrypoint (main.ts → node22), repo_created_after_open (beacon root
+  `5527529c…`, round 34023374, 2026-11-16T23:58:06Z), entry_size (147,265 bytes;
+  app.ts 128,667 bytes), committed_provider_key (no provider key in 8 files).
+  Failed: transcripts_present (no transcripts uploaded) — the only failure.
+  At submission: repo_owner (anchor wallet must be linked to the submitting
+  account), source_bundle (submit --source), duplicate_snapshot.
+- `makefun bundle` (attempted 17 Nov 2026, dry-run + real run): the bundle tool
+  finds the 2 sessions that built the entry — this session
+  (`0cae7275-6e6c-44de-a0d9-f0de04744236.jsonl`, 511/511 lines kept, 155 turns)
+  plus the parent orchestrator's session (`d5a19065-…`, 61 lines kept, 122
+  earlier records dropped, 16 turns) — but **writes no tarball yet**:
+  (1) `--harness-version` is missing: the run record needs harness + version +
+  provider + model + effort; harness "Muse", provider "meta", model
+  "muse-spark-1.3", effort "default", MCP "none" are all declared, but no Muse
+  app version string is discoverable on this machine (no `muse` CLI, no version
+  file under /opt/muse or ~/.muse); bundle records the version as stated and
+  never checks it, so it must be supplied, not invented here.
+  (2) 0 usage rows exist for the builder's agent_id in muse.db
+  (`agent.agent_message_token_usage` returns 0 rows for `0cae7275-…`; the parent
+  agent `d5a19065-…` does have rows, model `ipnext/avocado-5.17-v2`): the tool
+  says a subagent's usage row is written only once its run completes, and the
+  top-level agent (`5eb109cd-…`) must run the SELECT with its own agent_id and
+  each subagent's, then re-run bundle with `--muse-usage <file>`.
+  Exact re-run (from the top-level agent, after this run completes):
+  `node cli/makefun.mjs bundle --repo <entry> --out transcripts.tar.gz
+  --no-discover --session <builder jsonl> --prompt-file /tmp/github-core-clone-01-prompt.txt
+  --prompt-origin handed-off --prompt-via "parent orchestrator subagent handoff"
+  --harness Muse --harness-version <VERSION> --model muse-spark-1.3 --provider meta
+  --effort default --mcp none --muse-usage <usage-file>`.
+  Until then the entry ranks but takes no paid place (`no_transcripts`).
 - No `makefun submit`, no GitHub push, no other bounty touched.
+- Elapsed wall time (session record): 2026-11-16T23:52:27Z → ~00:40Z, ~48 min.
