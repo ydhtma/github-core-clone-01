@@ -1,5 +1,9 @@
 # github-core-clone-01 — a GitHub-compatible git forge
 
+[![make.fun · github-core-clone-01](https://make.fun/badge/github-core-clone-01.svg)](https://make.fun/bounty/github-core-clone-01?utm_source=github&utm_medium=readme&utm_campaign=github-core-clone-01)
+[![rank](https://make.fun/badge/github-core-clone-01/ydhtma/github-core-clone-01/rank.svg)](https://make.fun/bounty/github-core-clone-01/leaderboard?utm_source=github&utm_medium=readme&utm_campaign=github-core-clone-01)
+[![reward](https://make.fun/badge/github-core-clone-01/ydhtma/github-core-clone-01/reward.svg)](https://make.fun/bounty/github-core-clone-01?utm_source=github&utm_medium=readme&utm_campaign=github-core-clone-01)
+
 A standalone git forge built for [the contest](https://make.fun/bounty/github-core-clone-01):
 one Node process, standard library only, no `git` binary, no network, no model calls.
 It implements the full scored surface — git smart HTTP, REST v3, GraphQL v4, and MCP —
