@@ -111,7 +111,15 @@ node:zlib) behind the starter `main.ts` lifecycle (unchanged):
   (agent 200, feature 600 = 120/120, perf 96); replay byte-for-byte; L1 regrade
   reproduced byte-for-byte. (Run 2, before the thin-pack fix and /healthz.)
 - `makefun grade-local --driver process --worktree --instances 3` on committed
-  HEAD: (result recorded in the final report; BUILD-LOG updated after the run).
+  HEAD (`9264505`): **mean score 952** — trial scores 944 / 953 / 959
+  (agent 200, feature 600 = 120/120 on all three, perf 144 / 153 / 159,
+  perf_p50_us 436152 / 389293 / 355356); replay + L1 regrade reproduced
+  byte-for-byte; kept run
+  `/home/hatch/.makefun/trials/github-core-clone-01/01a1e6e3-8223-7632-9d05-98772b8e4605/`
+  (`result_sha256 a8021be41989278797c6ab0be54642c358db39b8714f72dd11161a8d80287660`).
+  Eligibility on every run: ranked yes, prize no, efficiency no
+  (`no_transcripts`, `coverage_below_gate`, `cost_unpriced`) — transcript gate
+  and pricing are submit-time items, not code failures.
 - `makefun check` / `makefun bundle`: see final report (transcript gate depends on
   the parent's submit decision; no submit was run).
 - No `makefun submit`, no GitHub push, no other bounty touched.
